@@ -19,7 +19,7 @@
 
 - __Gaussian noise__ refers to statistical noise that has a probability density function (PDF) equal to the normal distribution, also known as the Gaussian distribution. The values that the noise can take on are Gaussian-distributed
 
-    - Probability density function $p$
+    - Probability density function
     $$ p_G(z) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}} $$
 
     $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
