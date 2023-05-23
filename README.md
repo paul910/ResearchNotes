@@ -9,10 +9,10 @@
 - __Kullback-Leibler (KL) divergence__ is a measure of how one probability distribution is different from a second, reference probability distribution
 
     - Discrete probabilitiy distributions
-    $$D_{KL}(P||Q)=\sum_{x \in X} P(x) log(\frac{P(x)}{Q(x)})$$
+        $$D_{KL}(P||Q)=\sum_{x \in X} P(x) log(\frac{P(x)}{Q(x)})$$
 
     - Continious probabilitiy distributions
-    $$D_{KL}(P||Q)=\int_{-\infty}^{\infty} P(x) log(\frac{P(x)}{Q(x)}) dx$$
+        $$D_{KL}(P||Q)=\int_{-\infty}^{\infty} P(x) log(\frac{P(x)}{Q(x)})dx$$
 
 
 - __Latent variable model__ is a statistical model that incorporates both observed variables and unobserved or hidden variables. The unobserved variables are referred to as "latent" because they cannot be directly measured
@@ -20,9 +20,9 @@
 - __Gaussian noise__ refers to statistical noise that has a probability density function (PDF) equal to the normal distribution, also known as the Gaussian distribution. The values that the noise can take on are Gaussian-distributed
 
     - Probability density function
-    $$p_G(z)=\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}}$$
+        $$p_G(z)=\frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}}$$
 
-    $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
+        $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
 
 - __Stochastic Differential Equations (SDEs)__ are a type of differential equation where one or more terms are determined by a stochastic, or random, process. Consequently, the solution to these equations is also a stochastic process
 
