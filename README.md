@@ -29,11 +29,11 @@
 # Denoising Diffusion Probabilistic Models 2020 ([Paper](https://arxiv.org/pdf/2006.11239.pdf))
 
 <p align="center">
-    <img src="diffusion_process.png" width=800>
+    <img src="images/diffusion_process.png" width=800>
 </p>
 
 <p align="center">
-    <img src="diffusion_algorithm.png" width=800>
+    <img src="images/diffusion_algorithm.png" width=800>
 </p>
 
 ## Reverse process
@@ -65,7 +65,7 @@ $$ q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1}) $$
 
 These methods still have limitations, such as VAEs struggling with large-scale graphs, GANs being prone to mode collapse, and flow-based models having difficulty learning graph structures
 <p align="center">
-    <img src="deep_generative_models.png" width=500>
+    <img src="images/deep_generative_models.png" width=500>
 </p>
 
 - __VAE:__  generate graphs using probability, necessitating an extensive graph-matching procedure or a precise calculation of the likelihood for each potential node alignment while attaining permutation invariance
