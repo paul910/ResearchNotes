@@ -15,7 +15,16 @@
     $$D_{KL}(P||Q)=\int_{-\infty}^{\infty} P(x) log(\frac{P(x)}{Q(x)}) dx$$
 
 
-- __Latent variable model__ is a statistical model that incorporates both observed variables and unobserved or hidden variables. The unobserved variables are referred to as "latent" because they cannot be directly measured.
+- __Latent variable model__ is a statistical model that incorporates both observed variables and unobserved or hidden variables. The unobserved variables are referred to as "latent" because they cannot be directly measured
+
+- __Gaussian noise__ refers to statistical noise that has a probability density function (PDF) equal to the normal distribution, also known as the Gaussian distribution. The values that the noise can take on are Gaussian-distributed
+
+    - Probability density function $p$
+        $$ p_G(z) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}} $$
+
+        $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
+
+- __Stochastic Differential Equations (SDEs)__ are a type of differential equation where one or more terms are determined by a stochastic, or random, process. Consequently, the solution to these equations is also a stochastic process
 
 # Denoising Diffusion Probabilistic Models 2020 ([Paper](https://arxiv.org/pdf/2006.11239.pdf))
 
@@ -54,7 +63,7 @@ $$ q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1}) $$
 
 ## Problem with current deep generative models (VAE, GAN)
 
-These methods still have limitations, such as VAEs struggling with large-scale graphs, GANs being prone to mode collapse, and flow-based models having difficulty learning graph structures.
+These methods still have limitations, such as VAEs struggling with large-scale graphs, GANs being prone to mode collapse, and flow-based models having difficulty learning graph structures
 <p align="center">
     <img src="deep_generative_models.png" width=500>
 </p>
@@ -74,32 +83,32 @@ These methods still have limitations, such as VAEs struggling with large-scale g
 
 ## Potential in diffusion models
 
-Denoising diffusion models have emerged as a new generative paradigm for enhancing generative capabilities in the image domain. Diffusion models have been successful in various tasks, including image generation and molecular graph modeling.
+Denoising diffusion models have emerged as a new generative paradigm for enhancing generative capabilities in the image domain. Diffusion models have been successful in various tasks, including image generation and molecular graph modeling
 
 ## Paradigms of diffusion models
 
 1. __Score Matching with Langevin Dynamics (SMLD):__ is a diffusion model that adds random noise to a data distribution and then reverses the diffusion process by learning the gradient of the data distribution. It uses a sequence of random Gaussian noises of incremental scales that can be modelled as $q_\sigma (\tilde{x}|x) = \mathcal{N}(\tilde{x}|x,\sigma^{2}I)$
 
-2. __Denoising Diffusion Probabilistic Model (DDPM):__ is a model that uses two parameterized Markov chains to gradually perturb raw data distribution to converge to the standard Gaussian distribution, and then recover the unperturbed data distribution. The forward chain diffuses the data with predefined noise, while the reverse chain trains a parameterized Gaussian transition kernel to reconstruct the desired samples from the noise.
+2. __Denoising Diffusion Probabilistic Model (DDPM):__ is a model that uses two parameterized Markov chains to gradually perturb raw data distribution to converge to the standard Gaussian distribution, and then recover the unperturbed data distribution. The forward chain diffuses the data with predefined noise, while the reverse chain trains a parameterized Gaussian transition kernel to reconstruct the desired samples from the noise
 
-3. __Score-based Generative Model (SGM):__ is a method for generating new samples using a diffusion process represented by stochastic differential equations (SDEs). It unifies Score Matching Langevin Dynamics (SMLD) and Denoising Diffusion Probabilistic Models (DDPM) into a continuous version by modeling the diffusion process in continuous time steps with a standard Wiener process.
+3. __Score-based Generative Model (SGM):__ is a method for generating new samples using a diffusion process represented by stochastic differential equations (SDEs). It unifies Score Matching Langevin Dynamics (SMLD) and Denoising Diffusion Probabilistic Models (DDPM) into a continuous version by modeling the diffusion process in continuous time steps with a standard Wiener process
 
 ### Pradigms on graphs
-1. __SMLD:__ EDP-GNN: This is a score matching-based diffusion method for undirected graph generation. It models symmetric adjacency matrices with different scales of Gaussian noise added to the upper triangular segment using neural networks. It employs a multi-channel GNN layer to obtain node features with a message-passing mechanism and an MLP output layer including a noise-conditioned term. 
+1. __SMLD:__ EDP-GNN: This is a score matching-based diffusion method for undirected graph generation. It models symmetric adjacency matrices with different scales of Gaussian noise added to the upper triangular segment using neural networks. It employs a multi-channel GNN layer to obtain node features with a message-passing mechanism and an MLP output layer including a noise-conditioned term
     
-    ConfGF: This model adapts SMLD-based diffusion work to molecular confirmation generation. Instead of generating adjacency matrices like EDP-GNN, ConfGF focuses on generating atomic coordinates (node feature) R given the molecular graph G. It maps a set of atomic coordinates to a set of interatomic distances l and learns the score function of interatomic distance distributions.
+    ConfGF: This model adapts SMLD-based diffusion work to molecular confirmation generation. Instead of generating adjacency matrices like EDP-GNN, ConfGF focuses on generating atomic coordinates (node feature) R given the molecular graph G. It maps a set of atomic coordinates to a set of interatomic distances l and learns the score function of interatomic distance distributions
 
-2. __DDPM:__ This category of models focuses on designing appropriate transition kernels of the Markov chain for denoising diffusion probabilistic models on graphs. Examples include Haefeli et al.'s denoising diffusion kernel, DiGress (which extends the DDPM algorithm to generate graphs with categorical node and edge attributes), E(3) Equivariant Diffusion Model (EDMs), Equivariant Energy-Guided SDE (EEGSDE), MDM, and GRAPHARM.
+2. __DDPM:__ This category of models focuses on designing appropriate transition kernels of the Markov chain for denoising diffusion probabilistic models on graphs. Examples include Haefeli et al.'s denoising diffusion kernel, DiGress (which extends the DDPM algorithm to generate graphs with categorical node and edge attributes), E(3) Equivariant Diffusion Model (EDMs), Equivariant Energy-Guided SDE (EEGSDE), MDM, and GRAPHARM
 
-3. __SGM:__ These models aim to overcome the limitations of EDP-GNN by using continuous-time SDE systems to model the diffusion process over nodes and edges simultaneously. GDSS is one such model that proposes a continuous-time SDE system and introduces a reverse-time SDE system for nodes and edges. Other models in this category include Graph Spectral Diffusion Model (GSDM), which performs low-rank Gaussian noise insertion, and SGGM, which introduces a latent-based generative framework on the graph.
+3. __SGM:__ These models aim to overcome the limitations of EDP-GNN by using continuous-time SDE systems to model the diffusion process over nodes and edges simultaneously. GDSS is one such model that proposes a continuous-time SDE system and introduces a reverse-time SDE system for nodes and edges. Other models in this category include Graph Spectral Diffusion Model (GSDM), which performs low-rank Gaussian noise insertion, and SGGM, which introduces a latent-based generative framework on the graph
 
 ## Summary
 
 Recommend use for generating large graphs is the Score-based Generative Model (SGM).
 
-1. SGM generalizes the diffusion steps into a continuous scenario, making it more flexible and suitable for large graphs. The continuous-time SDE system used in SGM allows for efficient and accurate modeling of the diffusion process.
+1. SGM generalizes the diffusion steps into a continuous scenario, making it more flexible and suitable for large graphs. The continuous-time SDE system used in SGM allows for efficient and accurate modeling of the diffusion process
 
-2. GDSS, an implementation of SGM, proposes a continuous-time SDE system to model the diffusion process over nodes and edges simultaneously. This approach can handle both the adjacency matrix and node features, making it well-suited for generating large graphs with complex structures.
+2. GDSS, an implementation of SGM, proposes a continuous-time SDE system to model the diffusion process over nodes and edges simultaneously. This approach can handle both the adjacency matrix and node features, making it well-suited for generating large graphs with complex structures
 
 3. SGM also unifies SMLD and DDPM into a continuous version, allowing you to leverage the benefits of both paradigms while overcoming their limitations
 
