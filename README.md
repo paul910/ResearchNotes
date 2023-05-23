@@ -20,9 +20,9 @@
 - __Gaussian noise__ refers to statistical noise that has a probability density function (PDF) equal to the normal distribution, also known as the Gaussian distribution. The values that the noise can take on are Gaussian-distributed
 
     - Probability density function $p$
-        $$ p_G(z) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}} $$
+    $$ p_G(z) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(z-\mu)^2}{2\sigma^2}} $$
 
-        $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
+    $z$ grey level, $\mu$ mean grey value, $\sigma$ standard deviation 
 
 - __Stochastic Differential Equations (SDEs)__ are a type of differential equation where one or more terms are determined by a stochastic, or random, process. Consequently, the solution to these equations is also a stochastic process
 
