@@ -112,10 +112,49 @@ Recommend use for generating large graphs is the Score-based Generative Model (S
 
 3. SGM also unifies SMLD and DDPM into a continuous version, allowing you to leverage the benefits of both paradigms while overcoming their limitations
 
-4. SGM implementations like GDSS and GSDM have demonstrated their ability to generate large-scale graphs with high quality
+4. SGM implementations like GDSS ([Paper](https://arxiv.org/pdf/2202.02514.pdf)) ([Github](https://github.com/harryjo97/GDSS)) and GSDM have demonstrated their ability to generate large-scale graphs with high quality
 
 
-# GDSS: Score-based Generative Modeling of Graphs via the System of Stochastic Differential Equations ([Paper](https://arxiv.org/pdf/2202.02514.pdf)) ([Github](https://github.com/harryjo97/GDSS))
+# A Survey on Graph Diffusion Models ([Paper](https://arxiv.org/pdf/2304.01565v1.pdf))
 
-This model enhances the generative process by incorporating a diffusion procedure for graphs, capable of simultaneously generating node characteristics and adjacency through a system of Stochastic Differential Equations (SDEs)
+## Current deep graph generation models
 
+There are four popular generative modeling methods: Auto-Regressive Models, Variational Auto-Encoders, Normalizing Flows, and Generative Adversarial Networks. These models aim to provide a more comprehensive scope of graph properties and generate more realistic results
+
+1. __Auto-Regressive (AR) model__ is a generative approach that predicts the next output in a sequence based on previous outputs
+    - Although AR demonstrates impressive performance in generating graphs, it struggles to design permutation-invariant graph distributions due to its treatment of graphs as sequences
+
+2. __Variational Auto Encoders (VAEs)__ consist of an encoder that maps input data into a low-dimensional latent space and a decoder that maps the latent representation back to the original data space. They are optimized by minimizing the reconstruction error while regularizing the latent space to follow a prior probability distribution
+    - Graph generation methods based on autoencoders have scalability constraints, which limit their applicability to large-scale graphs
+
+3. __Normalizing Flows__ apply a series of reversible transformations to a basic probability distribution, allowing it to model more complex probability distributions. This method is used in encoder models to effectively translate simpler distributions into more sophisticated ones. The decoder then serves as the inverse function of the encoder
+    - A significant limitation of Normalizing Flows is the constraints imposed on generating valid graphs, due to the one-shot nature of the process
+
+4. __Generative Adversarial Networks (GANs)__ consist of a generator network and a discriminator network. The generator creates synthetic data to fool the discriminator, which evaluates the authenticity of the generated data
+    - GAN-based methods face challenges in graph generation due to the need for likelihood-based optimization
+
+## Diffusion Models
+
+Diffusion models belong to a category of generative models that slowly infuse noise into data until it aligns with a predefined distribution. These models subsequently learn to invert this procedure to create credible samples.
+
+Three distinct sub-categories exist: Denoising Diffusion Probabilistic Models (DDPMs), Score-Based Generative Models (SGMs), and Stochastic Differential Equations (SDEs). The differentiation between these types is based on their implementation of the forward and backward diffusion pass.
+
+<p align="center">
+    <img src="images/forward_reverse_process.png" width=600>
+</p>
+
+1. __SGM: Score-Based Generative Models__ are a type of probabilistic model that use a score function to depict the probability distribution of data. The score function, $\nabla_x log p(x)$, is essentially the gradient of the logarithm of the probability density function $p(x)$. 
+
+    Score network training objective (utilizing techniques such as denoising score matching):
+    $$ \mathbb{E}_{t \backsim \mathcal{U}[[1,T]],x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} [\lambda(t)|| \epsilon + \sigma_t s_\theta(x_t,t)||^2]  $$
+
+2. __DDPM: Denoising Diffusion Probabilistic Models__
+
+    Model’s optimization objective:
+    $$ \mathbb{E}_{t \backsim \mathcal{U}(1,T),x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} \lambda(t)|| \epsilon + \epsilon_\theta(x_t,t)||^2  $$
+
+
+3. __SDE: Stochastic Differential Equations__
+
+    The score function is estimated by parameterizing a score model $ s_\theta(x_t, t)$:
+    $$ \mathbb{E}_{t \backsim \mathcal{U}[1,T],x_t \backsim q(x_t|x_0)} [\lambda(t)|| s_\theta(x_t,t) - \nabla_{x_t}logq_{0t}(x_t|x_0)||^2]  $$
