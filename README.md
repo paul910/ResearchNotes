@@ -145,19 +145,19 @@ Three distinct sub-categories exist: Denoising Diffusion Probabilistic Models (D
 
 1. __SGM: Score-Based Generative Models__ are a type of probabilistic model that use a score function to depict the probability distribution of data. The score function, $\nabla_x log p(x)$, is essentially the gradient of the logarithm of the probability density function $p(x)$
 
-    - Score network training objective (utilizing techniques such as denoising score matching):
+    - Score network training objective (utilizing techniques such as denoising score matching): 
     
-        $$\mathbb{E}_{t \backsim \mathcal{U}[[1,T]],x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} [\lambda(t)|| \epsilon + \sigma_t s_\theta(x_t,t)||^2] $$
+    $$\mathbb{E}_{t \backsim \mathcal{U}[[1,T]],x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} [\lambda(t)|| \epsilon + \sigma_t s_\theta(x_t,t)||^2] $$
 
 2. __DDPM: Denoising Diffusion Probabilistic Models__
 
-    - Model’s optimization objective:
+    - Model’s optimization objective: 
     
-        $$\mathbb{E}_{t \backsim \mathcal{U}(1,T),x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} \lambda(t)|| \epsilon + \epsilon_\theta(x_t,t)||^2$$
+    $$\mathbb{E}_{t \backsim \mathcal{U}(1,T),x_0 \backsim q(x_0),\epsilon \backsim \mathcal{N}(0,I)} \lambda(t)|| \epsilon + \epsilon_\theta(x_t,t)||^2$$
 
 
 3. __SDE: Stochastic Differential Equations__
 
     - The score function is estimated by parameterizing a score model $ s_\theta(x_t, t)$:
         
-        $$\mathbb{E}_{t \backsim \mathcal{U}[1,T],x_t \backsim q(x_t|x_0)} [\lambda(t)|| s_\theta(x_t,t) - \nabla_{x_t}logq_{0t}(x_t|x_0)||^2]$$
+    $$\mathbb{E}_{t \backsim \mathcal{U}[1,T],x_t \backsim q(x_t|x_0)} [\lambda(t)|| s_\theta(x_t,t) - \nabla_{x_t}logq_{0t}(x_t|x_0)||^2]$$
